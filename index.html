@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>💌 Open Envelope Surprise</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="hearts"></div>
+
+  <div class="container">
+    <div class="envelope">
+      <div class="flap"></div>
+      <div class="letter">
+        <div class="message">
+          <h2>💖 Surprise Message</h2>
+          <p>
+            You’ve got a special message!  
+            Life is full of little surprises — you are one of them 🌸  
+            Keep smiling, shining, and sharing love wherever you go 💫✨
+          </p>
+        </div>
+      </div>
+    </div>
+
+    <button id="button_open_envelope">Open Envelope</button>
+
+    <!-- WhatsApp Share Button -->
+    <a id="whatsapp_share" href="#" target="_blank">
+      <img src="whatsapp.png" alt="WhatsApp" />
+      Share on WhatsApp
+    </a>
+  </div>
+
+  <script>
+    const button = document.getElementById("button_open_envelope");
+    const envelope = document.querySelector(".envelope");
+    const message = document.querySelector(".message");
+    const whatsapp = document.getElementById("whatsapp_share");
+    const heartsContainer = document.querySelector('.hearts');
+
+    // Open envelope animation
+    button.addEventListener("click", () => {
+      envelope.classList.toggle("open");
+      message.classList.toggle("show");
+    });
+
+    // Floating hearts animation
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.style.left = Math.random() * 100 + 'vw';
+      heart.style.animationDuration = (Math.random() * 2 + 3) + 's';
+      heartsContainer.appendChild(heart);
+      setTimeout(() => heart.remove(), 5000);
+    }
+    setInterval(createHeart, 400);
+
+    // Dynamic WhatsApp share
+    whatsapp.addEventListener("click", (e) => {
+      e.preventDefault();
+      const text = message.innerText.trim();
+      const encodedText = encodeURIComponent(text + "\n💌 Check this out 👉 https://yourwebsite.com");
+      const url = `https://api.whatsapp.com/send?text=${encodedText}`;
+      window.open(url, "_blank");
+    });
+  </script>
+</body>
+</html>
